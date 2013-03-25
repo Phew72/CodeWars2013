@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weight Calculator</title>
+</head>
+<body>
+    <div id="nav">
+        <ul>
+            <li><a href="home.htm">home</a></li>
+            <li>Problem 1 - Weight Calculator</li>
+            <li><a href="problem2.htm">Problem 2 - A Question of Time</a></li>
+            <li><a href="problem3.htm">Problem 3 - Distinct Letters</a></li>
+            <li><a href="problem4.htm">Problem 4 - Counting Ones</a></li>
+            <li><a href="problem5.htm">Problem 5 - Family Tree</a></li>
+        </ul>
+    </div>
+    
+    <header>
+        <h1>Problem 1 - Weight Calculator</h1>
+    </header>
+    
+    <section id="main">
+    <form method="get" action="problem1.htm">
+        <input type="text" id="entry" name="entry" />
+        <button type="submit" value="Submit">Submit</button>
+    </form>
+    </section>
+    
+    <hr/>
+    <section>
+        <div id="data"></div>
+    </section>
+    
+    <hr/>
+    <section>
+        <div id="results"></div>
+    </section>
+    
+    <footer>
+        Code Wars 2013
+    </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+    <script>
+        
+        (function($) {
+            $('button').attr('type', 'submit').on('click', function(e) {
+                e.preventDefault();
+                console.log(e.type);
+                
+                
+                var status = validateEntry();
+                if (status === 0) {
+                    console.log('Display the entry...');
+                    displayEntries();
+                }
+                else if (status === 1) {
+                    console.log('Displaying results...');
+                    displayResults();
+                }
+                else {
+                    console.log('The entry was invalid.');
+                }
+            });
+            
+            function validateEntry() {
+                var result = -1,
+                    item = $('#entry').val(),
+                    items = item.split(' ');
+                
+                if (item === 'END 0 0 0') {
+                    result = 1;
+                }
+                else {
+                    console.log(items.length);
+                    if (items.length === 4) {
+                        result = 0;
+                    }
+                }
+                
+                return result;
+            }
+            
+            function displayEntries() {
+                var item = $('#entry').val();
+                $('#data').append('<span>' + item  + '</span></br>');
+            }
+            
+            function displayResults() {
+                var items = $('#data span');
+                
+                $.each(items, function (index, item) {
+                    var data = $(item).text().split(' ');
+                    $('#results').html('').append('<span>On ' + data[2] + ', ' + data[0] + ' would weight ' + (data[1] * data[3]) + ' pounds.</span>');
+                });
+            }
+            
+            function processEntries() {
+                var entries = $('#entry').val();
+                $.each(entries.split(''), function(index, item) {
+                    console.log(item);
+                });
+//                console.log(entries);
+            }
+        })(jQuery);
+        
+    </script>
+</body>
+</html>
